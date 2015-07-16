@@ -12,7 +12,7 @@ int G = 0;
 int B = 0;
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(16, PIN, NEO_GRB + NEO_KHZ800);
 
-int numberOfStrokes = 5;//max 30
+int numberOfStrokes = 10;//max 30
 unsigned long StrokeTimeArray[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, };;
 int velostatSensor = 0;
 unsigned long averageStroke = 0;
@@ -28,6 +28,7 @@ int VELOSENS = A1;
 void setup() {
   pinMode(VELOSENS, INPUT); // Set Trinket/Gemma Digital 0 to output
   // to drive the piezo buzzer (important)
+  strip.begin();
 }
 
 void loop() {
@@ -59,7 +60,7 @@ void loop() {
 void sensorRead() {
   if ((millis() - sensorDebounce) > debounceDelay) {
     velostatSensor = analogRead(A1);
-    if (velostatSensor > 1000) {
+    if (velostatSensor > 850) {
       StrokeTimeArray[StrokeCounter] = millis();
       lastStroke = thisStroke;
       thisStroke = millis();
